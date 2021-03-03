@@ -16,5 +16,13 @@ namespace ShopApplication.Controllers
         {
             return View();
         }
+        public IActionResult List()
+        {
+            return View();
+        }
+        public IActionResult Details(int id)
+        {
+            return View();
+        }
     }
 }
