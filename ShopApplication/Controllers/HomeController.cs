@@ -20,6 +20,9 @@ namespace ShopApplication.Controllers
 
         public IActionResult Index()
         {
+            int saat = DateTime.Now.Hour;            
+            ViewBag.Greeting = saat>12?"İyi Günler":"Günaydın";
+            ViewBag.UserName = "Emre";
             return View();
         }
         public IActionResult About()
@@ -29,6 +32,9 @@ namespace ShopApplication.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+        public IActionResult Contact(){
             return View();
         }
 
