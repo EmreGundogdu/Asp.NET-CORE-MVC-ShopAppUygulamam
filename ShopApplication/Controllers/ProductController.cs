@@ -28,8 +28,10 @@ namespace ShopApplication.Controllers
         {
             var products = new List<Product>()
             {
-                new Product{Name="Iphone X",Price=9000,Description="Yeni Nesil IPhone"},
-                new Product{Name="Iphone XR",Price=6000,Description="Yeni Nesil Geliştirilmiş IPhone"}
+                new Product{Name="Iphone X",Price=9000,Description="Yeni Nesil IPhone",IsApproved=true},
+                new Product{Name="Iphone XR",Price=6000,Description="Yeni Nesil Geliştirilmiş IPhone",IsApproved=true},
+                new Product{Name="Iphone XS",Price=9000,Description="Yeni Nesil Küçük IPhone",IsApproved=true},
+                new Product{Name="Iphone 11",Price=10000,Description="Yeni Nesil Güçlendirilmiş IPhone",IsApproved=true}
             };
             var category = new Category{Name="Telefonlar",Description="Telefon Kategorisi"};
             
