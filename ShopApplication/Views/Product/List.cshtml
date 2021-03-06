@@ -1,13 +1,13 @@
-﻿@model List<Product>
+﻿@model ProductViewModel
 
-    <h1>@ViewBag.Category.Name</h1>
+    <h1>@Model.Category.Name</h1>
 <div>
-    <p>@Model[0].Name</p>
-    <p>@Model[0].Price</p>
-    <p>@Model[0].Description</p>
+    <p>@Model.Products[0].Name</p>
+    <p>@Model.Products[0].Price</p>
+    <p>@Model.Products[0].Description</p>
 </div>
 <div>
-    <p>@Model[1].Name</p>
-    <p>@Model[1].Price</p>
-    <p>@Model[1].Description</p>
+    <p>@Model.Products[1].Name</p>
+    <p>@Model.Products[1].Price</p>
+    <p>@Model.Products[1].Description</p>
 </div>

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopApplication.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ShopApplication.Controllers
 {
@@ -34,8 +32,12 @@ namespace ShopApplication.Controllers
                 new Product{Name="Iphone XR",Price=6000,Description="Yeni Nesil Geliştirilmiş IPhone"}
             };
             var category = new Category{Name="Telefonlar",Description="Telefon Kategorisi"};
-            ViewBag.Category = category;
-            return View(products) ;
+            
+            var productViewModel = new ProductViewModel(){
+                Category = category,
+                Products = products
+            };
+            return View(productViewModel);
         }
         public IActionResult Details(int id)
         {
