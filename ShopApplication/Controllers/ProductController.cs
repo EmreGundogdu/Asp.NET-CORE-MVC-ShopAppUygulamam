@@ -28,7 +28,14 @@ namespace ShopApplication.Controllers
         }
         public IActionResult List()
         {
-            return View();
+            var products = new List<Product>()
+            {
+                new Product{Name="Iphone X",Price=9000,Description="Yeni Nesil IPhone"},
+                new Product{Name="Iphone XR",Price=6000,Description="Yeni Nesil Geliştirilmiş IPhone"}
+            };
+            var category = new Category{Name="Telefonlar",Description="Telefon Kategorisi"};
+            ViewBag.Category = category;
+            return View(products) ;
         }
         public IActionResult Details(int id)
         {
