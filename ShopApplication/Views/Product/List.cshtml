@@ -2,7 +2,7 @@
 @{
     var popularClass = Model.Products.Count > 2 ? "popular" : "";
     var categoryName = Model.Category.Name;
-    var products = Model.Products
+    var products = Model.Products;
 }
 <style>
     .popular {
@@ -10,6 +10,7 @@
         font-weight: 700;
     }
 </style>
+
 <h1 class="@popularClass">@categoryName</h1>
 
 @if (Model.Products.Count == 0)
