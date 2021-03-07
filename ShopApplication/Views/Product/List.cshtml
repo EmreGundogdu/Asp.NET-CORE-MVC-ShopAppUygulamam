@@ -4,28 +4,14 @@
     var categoryName = Model.Category.Name;
     var products = Model.Products;
 }
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+@await Html.PartialAsync("_navbar")
 <style>
     .popular {
         color: darkslategray;
         font-weight: 700;
     }
 </style>
-<div class="navbar bg-dark navbar-dark navbar-expand-sm">
-    <div class="container">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="#" class="nav-link">Link 1</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Link 2</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Link 3</a>
-            </li>
-        </ul>
-    </div>
-</div>
+
 <header>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
