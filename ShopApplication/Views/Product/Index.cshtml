@@ -1,8 +1,9 @@
-﻿@model Product
-@await Html.PartialAsync("_navbar")
-
-    <body>
-        <h4>Model Adı: @Model.Name</h4>
-        <h4>Model Fiyatı : @Model.Price</h4>
-        <h4>Model AÇıklaması : @Model.Description</h4>
-    </body>
+﻿
+<div class="row">
+    <div class="col-md-3">
+        @await Component.InvokeAsync("Categories")
+    </div>
+    <div class="col-md-9">
+        Product/Index
+    </div>
+</div>

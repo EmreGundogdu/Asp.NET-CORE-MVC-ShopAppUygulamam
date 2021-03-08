@@ -1,2 +1,10 @@
-﻿@await Html.PartialAsync("_navbar")
-home/about
+﻿
+
+<div class="row">
+    <div class="col-md-3">
+        @await Component.InvokeAsync("Categories")
+    </div>
+    <div class="col-md-9">
+        About
+    </div>
+</div>
