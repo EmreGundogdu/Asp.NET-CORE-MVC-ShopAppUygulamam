@@ -4,8 +4,7 @@ using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ShopApplication.Controllers
 {
@@ -20,10 +19,21 @@ namespace ShopApplication.Controllers
 
         public IActionResult Index()
         {
-            int saat = DateTime.Now.Hour;            
-            ViewBag.Greeting = saat<10?"Günaydın":"İyi Günler";
-            ViewBag.UserName = "Emre";
-            return View();
+            var products = new List<Product>()
+            {
+                new Product{Name="Iphone X",Price=9000,Description="Yeni Nesil IPhone",IsApproved=true},
+                new Product{Name="Iphone XR",Price=6000,Description="Yeni Nesil Geliştirilmiş IPhone",IsApproved=true},
+                new Product{Name="Iphone XS",Price=9000,Description="Yeni Nesil Küçük IPhone",IsApproved=true},
+                new Product{Name="Iphone 11",Price=10000,Description="Yeni Nesil Güçlendirilmiş IPhone",IsApproved=true}
+            };
+            
+
+
+            var productViewModel = new ProductViewModel()
+            {
+                Products = products
+            };
+            return View(productViewModel);
         }
         public IActionResult About()
         {

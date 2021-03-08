@@ -33,10 +33,10 @@ namespace ShopApplication.Controllers
                 new Product{Name="Iphone XS",Price=9000,Description="Yeni Nesil Küçük IPhone",IsApproved=true},
                 new Product{Name="Iphone 11",Price=10000,Description="Yeni Nesil Güçlendirilmiş IPhone",IsApproved=true}
             };
-            var category = new Category{Name="Telefonlar",Description="Telefon Kategorisi"};
             
-            var productViewModel = new ProductViewModel(){
-                Category = category,
+            
+
+            var productViewModel = new ProductViewModel() {                
                 Products = products
             };
             return View(productViewModel);

@@ -1,6 +1,41 @@
-﻿@await Html.PartialAsync("_navbar")
+﻿@model ProductViewModel
+@{
+    var popularClass = Model.Products.Count > 2 ? "popular" : "";
+    var products = Model.Products;
+}
 
-</div>
-    <p>@ViewBag.Greeting @ViewBag.UserName, Nasılsınız?</p>
-    <p>Umarım sitemizden memnunsunuzdur</p>
-</div>
+<style>
+    .popular {
+        color: darkslategray;
+        font-weight: 700;
+    }
+</style>
+
+@await Html.PartialAsync("_navbar")
+<partial name="_header" />
+<main>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("Categories")
+            </div>
+            <div class="col-md-9">
+                @if (Model.Products.Count == 0)
+                {
+                    @await Html.PartialAsync("_noproduct")
+                }
+                else
+                {
+                    <div class="row">
+
+                        @foreach (var product in products)
+                        {
+                            <div class="col-md-3">@await Html.PartialAsync("_product", product)</div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</main>
