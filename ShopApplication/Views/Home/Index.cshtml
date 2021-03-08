@@ -3,25 +3,34 @@
     var popularClass = Model.Products.Count > 2 ? "popular" : "";
     var products = Model.Products;
 }
-
-<div class="row">
-    <div class="col-md-3">
-        @await Component.InvokeAsync("Categories")
-    </div>
-    <div class="col-md-9">
-        @if (Model.Products.Count == 0)
-        {
-            @await Html.PartialAsync("_noproduct")
-        }
-        else
-        {
-            <div class="row">
-
-                @foreach (var product in products)
-                {
-                    <div class="col-md-3">@await Html.PartialAsync("_product", product)</div>
-                }
+@section MessageBox{
+    <div class="alert alert-light text-center m-0">You have a message!</div>
+}
+@section Jumbotron{
+    <header>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Shop App</h1>
+                <p class="lead">Shopp Application By "Emre Gundogdu"</p>
             </div>
+        </div>
+    </header>
+}
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+}
+@if (Model.Products.Count == 0)
+{
+    @await Html.PartialAsync("_noproduct")
+}
+else
+{
+    <div class="row">
+
+        @foreach (var product in products)
+        {
+            <div class="col-md-3">@await Html.PartialAsync("_product", product)</div>
         }
     </div>
-</div>
+}
