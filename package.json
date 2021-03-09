@@ -1,0 +1,24 @@
+{
+  "name": "Shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmreGundogdu/Asp.NET-CORE-MVC-ShopAppUygulamam.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmreGundogdu/Asp.NET-CORE-MVC-ShopAppUygulamam/issues"
+  },
+  "homepage": "https://github.com/EmreGundogdu/Asp.NET-CORE-MVC-ShopAppUygulamam#readme"
+}
