@@ -13,10 +13,14 @@ namespace ShopApplication.Data
         {
             _products = new List<Product>
             {
-                new Product{ProductId=1, Name="Iphone X",Price=9000,Description="Yeni Nesil IPhone",IsApproved=true, ImageUrl="1.jpg"},
-                new Product{ProductId=2,Name="Iphone XR",Price=6000,Description="Yeni Nesil Geliştirilmiş IPhone",IsApproved=true, ImageUrl="3.jpg"},
-                new Product{ProductId=3,Name="Iphone XS",Price=9000,Description="Yeni Nesil Küçük IPhone",IsApproved=true, ImageUrl="2.jpg"},
-                new Product{ProductId=4,Name="Iphone 11",Price=10000,Description="Yeni Nesil Güçlendirilmiş IPhone",IsApproved=true, ImageUrl="4.jpg"}
+                new Product{ProductId=1, Name="Iphone X",Price=9000,Description="Yeni Nesil IPhone",IsApproved=true, ImageUrl="1.jpg",CategoryId=1},
+                new Product{ProductId=2,Name="Iphone XR",Price=6000,Description="Yeni Nesil Geliştirilmiş IPhone",IsApproved=true, ImageUrl="3.jpg",CategoryId=1},
+                new Product{ProductId=3,Name="Iphone XS",Price=9000,Description="Yeni Nesil Küçük IPhone",IsApproved=true, ImageUrl="2.jpg",CategoryId=1},
+                new Product{ProductId=4,Name="Iphone 11",Price=10000,Description="Yeni Nesil Güçlendirilmiş IPhone",IsApproved=true, ImageUrl="4.jpg",CategoryId=1},
+                new Product{ProductId=5, Name="Dell",Price=9000,Description="Uygun Fiyatlı Laptop",IsApproved=true, ImageUrl="6.jpg",CategoryId=2},
+                new Product{ProductId=6,Name="Apple Macbook",Price=6000,Description="Çok Kullanışlı Laptop",IsApproved=true, ImageUrl="7.jpg",CategoryId=2},
+                new Product{ProductId=7,Name="Asus",Price=9000,Description="Tasarım Ve Performans Laptopu",IsApproved=true, ImageUrl="8.jpg",CategoryId=2},
+                new Product{ProductId=8,Name="MSI",Price=10000,Description="En Güçlü Donanıma Sahip",IsApproved=true, ImageUrl="9.jpg",CategoryId=2}
             };
         }
         public static List<Product> Products
