@@ -3,6 +3,7 @@ using ShopApplication.Data;
 using ShopApplication.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ShopApplication.Controllers
 {
@@ -26,7 +27,8 @@ namespace ShopApplication.Controllers
             return View();
         }
         public IActionResult List(int? id)
-        {
+        {           
+
             var products = ProductRepository.Products;
             if (id!=null)
             {
