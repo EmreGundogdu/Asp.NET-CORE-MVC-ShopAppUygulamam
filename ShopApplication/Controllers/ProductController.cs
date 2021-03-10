@@ -2,7 +2,7 @@
 using ShopApplication.Data;
 using ShopApplication.Models;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace ShopApplication.Controllers
 {
@@ -25,11 +25,15 @@ namespace ShopApplication.Controllers
         {
             return View();
         }
-        public IActionResult List()
-        {                    
-
-            var productViewModel = new ProductViewModel() {                
-                Products = ProductRepository.Products
+        public IActionResult List(int? id)
+        {
+            var products = ProductRepository.Products;
+            if (id!=null)
+            {
+                products = products.Where(p => p.CategoryId == id).ToList();
+            }
+            var productViewModel = new ProductViewModel() {
+                Products = products
             };
             return View(productViewModel);
         }
