@@ -34,12 +34,8 @@ namespace ShopApplication.Controllers
             return View(productViewModel);
         }
         public IActionResult Details(int id)
-        {
-            var product = new Product();
-            product.Name = "İPhone XR";
-            product.Price = 6500;
-            product.Description = "Güzel Telefon";
-            return View(product);
+        {            
+            return View(ProductRepository.GetProductById(id));
         }
     }
 }

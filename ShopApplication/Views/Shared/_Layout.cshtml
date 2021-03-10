@@ -20,8 +20,8 @@
     {
         @RenderSection("Jumbotron")
     }    
-    <main>
-        <div class="container">
+    <main class="mb-5">
+        <div class="container mt-5">
             @if (IsSectionDefined("Categories"))
             {
                 <div class="row">
@@ -37,6 +37,7 @@
             }
         </div>
     </main>
+    <footer class="py-5 bg-dark text-white text-center">Shop App | 2021</footer>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     @RenderSection("Scripts", false) <!--İf koşuluna göre yazılmaması, sonuna da require mı değilmi onun için true false yazabiliriz.Her sayfada gözükmemesi için false-->
 </body>
