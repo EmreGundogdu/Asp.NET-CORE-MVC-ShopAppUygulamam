@@ -7,7 +7,16 @@
 @section Categories{
     @await Component.InvokeAsync("Categories")
 }
-
+@section Jumbotron{
+    <header>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Shop App</h1>
+                <p class="lead">Shopp Application By "Emre Gundogdu"</p>
+            </div>
+        </div>
+    </header>
+}
 
 @if (Model.Products.Count == 0)
 {

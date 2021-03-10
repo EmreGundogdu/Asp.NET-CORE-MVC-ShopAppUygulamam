@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopApplication.Data;
 using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,8 @@ namespace ShopApplication.ViewComponents
     public class CategoriesViewComponent:ViewComponent
     {
         public IViewComponentResult Invoke()
-        {
-            var categories = new List<Category>()
-            {
-                
-            };
-            return View(categories);
+        {            
+            return View(CategoryRepository.Categories);
         }
     }
 }

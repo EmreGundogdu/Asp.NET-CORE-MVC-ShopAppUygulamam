@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopApplication.Data;
 using ShopApplication.Models;
 using System.Collections.Generic;
 
@@ -25,16 +26,10 @@ namespace ShopApplication.Controllers
             return View();
         }
         public IActionResult List()
-        {
-            var products = new List<Product>()
-            {
-                
-            };
-            
-            
+        {                    
 
             var productViewModel = new ProductViewModel() {                
-                Products = products
+                Products = ProductRepository.Products
             };
             return View(productViewModel);
         }
