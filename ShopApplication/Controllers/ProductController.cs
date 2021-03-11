@@ -26,7 +26,7 @@ namespace ShopApplication.Controllers
         {
             return View();
         }
-        public IActionResult List(int? id,string q)
+        public IActionResult List(int? id,string q,double? min_price,double? max_price)
         {           
 
             var products = ProductRepository.Products;
@@ -46,6 +46,10 @@ namespace ShopApplication.Controllers
         public IActionResult Details(int id)
         {            
             return View(ProductRepository.GetProductById(id));
+        }
+        public IActionResult Create()
+        {
+            return View();
         }
     }
 }
