@@ -26,13 +26,17 @@ namespace ShopApplication.Controllers
         {
             return View();
         }
-        public IActionResult List(int? id)
+        public IActionResult List(int? id,string q)
         {           
 
             var products = ProductRepository.Products;
             if (id!=null)
             {
                 products = products.Where(p => p.CategoryId == id).ToList();
+            }
+            if (! string.IsNullOrEmpty(q))
+            {
+                products = products.Where(i => i.Name.ToLower().Contains(q.ToLower()) || i.Description.Contains(q)).ToList();
             }
             var productViewModel = new ProductViewModel() {
                 Products = products
