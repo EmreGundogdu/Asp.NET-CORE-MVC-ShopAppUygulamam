@@ -13,9 +13,10 @@ namespace ShopApplication.Data
         {
             _categories = new List<Category>
             {
-                new Category{CategoryId=1, Name="Telefonlar",Description="Telefon Kategorisi"},
-                new Category{CategoryId=2,Name="Bilgisayarlar",Description="Bilgisayar Kategorisi"},
-                new Category{CategoryId=3,Name="Elektronik Ürünler",Description="Elektronik Ürünler Kategorisi"}
+                new Category{CategoryId=1, Name="Telefon",Description="Telefon Kategorisi"},
+                new Category{CategoryId=2,Name="Bilgisayar",Description="Bilgisayar Kategorisi"},
+                new Category{CategoryId=3,Name="Elektronik Ürünler",Description="Elektronik Ürünler Kategorisi"},
+                new Category{CategoryId=4,Name="Kitap",Description="Kitap Kategorisi"},
             };
         }
         public static List<Category> Categories

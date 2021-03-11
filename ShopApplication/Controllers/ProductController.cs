@@ -4,6 +4,7 @@ using ShopApplication.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ShopApplication.Controllers
 {
@@ -50,6 +51,7 @@ namespace ShopApplication.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Categories = new SelectList(CategoryRepository.Categories,"CategoryId","Name");
             return View();
         }
         [HttpPost]
@@ -58,6 +60,6 @@ namespace ShopApplication.Controllers
             ProductRepository.AddProduct(p);
             return RedirectToAction("list");
         }
-    }
+    } 
 }
 
