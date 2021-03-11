@@ -47,7 +47,7 @@ namespace ShopApplication.Controllers
         {            
             return View(ProductRepository.GetProductById(id));
         }
-        public IActionResult Create()
+        public IActionResult Create(string name,double price)
         {
             return View();
         }

@@ -16,11 +16,12 @@
 
 
     <partial name="_navbar" />
+    @RenderSection("Header",false)
     @if (IsSectionDefined("Jumbotron"))
     {
         @RenderSection("Jumbotron")
     }    
-    <main class="mb-5">
+    <main class="my-5">
         <div class="container mt-5">
             @if (IsSectionDefined("Categories"))
             {
