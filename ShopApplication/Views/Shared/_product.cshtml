@@ -2,9 +2,10 @@
 
 <div class="card my-4">
     <img class="card-img-top my-2" src="~/images/@Model.ImageUrl"/>
-    <div class="card-body">
+    <div class="card-body" style="justify-content:center">
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">@Model.Description</p>
-        <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.ProductId" class="btn btn-dark">İncele</a>
+        <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.ProductId" class="btn btn-dark btn-sm">Check</a>
+        <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-dark btn-sm">Edit</a>
     </div>
 </div>
