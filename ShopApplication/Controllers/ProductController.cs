@@ -57,8 +57,13 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult Create(Product p)
         {
-            ProductRepository.AddProduct(p);
-            return RedirectToAction("list");
+            if (ModelState.IsValid)
+            {
+                ProductRepository.AddProduct(p);
+                return RedirectToAction("list");
+            }
+            ViewBag.Categories = new SelectList(CategoryRepository.Categories, "CategoryId", "Name");
+            return View(new Product());
         }
         [HttpGet]
         public IActionResult Edit(int id)
