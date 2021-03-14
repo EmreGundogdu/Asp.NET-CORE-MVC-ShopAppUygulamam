@@ -54,7 +54,7 @@ namespace ShopApplication.Controllers
             ViewBag.Categories = new SelectList(CategoryRepository.Categories,"CategoryId","Name");
             return View();
         }
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult Create(Product p)
         {
             if (ModelState.IsValid)
@@ -64,7 +64,7 @@ namespace ShopApplication.Controllers
             }
             ViewBag.Categories = new SelectList(CategoryRepository.Categories, "CategoryId", "Name");
             return View(new Product());
-        }
+        }*/
         [HttpGet]
         public IActionResult Edit(int id)
         {
