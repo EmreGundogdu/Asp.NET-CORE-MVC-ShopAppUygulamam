@@ -6,13 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Concrete.MySQL
+namespace DataAccess.Concrete.EfCore
 {
-    public class MySQLProductRepository : IProductRepository
+    public class EfProductRepository : IProductRepository
     {
+        private ShopContext db = new ShopContext();
         public void Create(Product entity)
         {
-            throw new NotImplementedException();
+            db.Products.Add(entity);
+            db.SaveChanges();
         }
 
         public void Delete(int id)
@@ -26,6 +28,11 @@ namespace DataAccess.Concrete.MySQL
         }
 
         public Product GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Product> GetPopularProducts()
         {
             throw new NotImplementedException();
         }
