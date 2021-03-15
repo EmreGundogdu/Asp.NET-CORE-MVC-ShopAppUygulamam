@@ -13,6 +13,6 @@ namespace DataAccess.Abstract
         List<T> GetAll();
         void Create(T entity);
         void Update(T entity);
-        void Delete(int id);
+        void Delete(T entity);
     }
 }
