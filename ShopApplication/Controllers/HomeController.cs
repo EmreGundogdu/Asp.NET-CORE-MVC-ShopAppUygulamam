@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ShopApplication.Data;
 using ShopApplication.Models;
@@ -11,6 +12,11 @@ namespace ShopApplication.Controllers
 {
     public class HomeController : Controller
     {
+        private IProductRepository _productRepository;
+        public HomeController(IProductRepository productRepository)
+        {
+            this._productRepository = productRepository;
+        }
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
