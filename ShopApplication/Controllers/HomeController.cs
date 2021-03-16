@@ -1,8 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ShopApplication.Data;
-using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,23 +11,16 @@ namespace ShopApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private IProductRepository _productRepository;
-        public HomeController(IProductRepository productRepository)
+        IProductService _productService;
+        public HomeController(IProductService productService)
         {
-            this._productRepository = productRepository;
-        }
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+            _productService = productService;
+        }    
         public IActionResult Index()
-        {  
+        {
             var productViewModel = new ProductViewModel()
             {
-                Products = ProductRepository.Products
+                Products = _productService.GetAll()
             };
             return View(productViewModel);
         }
@@ -43,12 +35,6 @@ namespace ShopApplication.Controllers
         }
         public IActionResult Contact(){
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }        
+        }            
     }
 }

@@ -18,12 +18,12 @@
         <label for="ImageUrl">Image Url</label>
         <input asp-for="ImageUrl" value="@Model.ImageUrl" class="form-control" />
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <label for="CategoryId">Category Id</label>
         <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
             <option selected disabled>Seçiniz</option>
 
         </select>
-    </div>
+    </div>*@
     <button type="submit" class="btn btn-dark">Submit</button>
 </form>

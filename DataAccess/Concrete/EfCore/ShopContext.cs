@@ -14,7 +14,7 @@ namespace DataAccess.Concrete.EfCore
         public DbSet<Category> Categories { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=shopDb");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=shopDb;Trusted_Connection=true");
         }       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

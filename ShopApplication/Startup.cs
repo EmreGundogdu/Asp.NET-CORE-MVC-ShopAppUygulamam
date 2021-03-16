@@ -1,3 +1,5 @@
+using Business.Abstract;
+using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EfCore;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +28,7 @@ namespace ShopApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProductRepository, EfProductRepository>();
+            services.AddScoped<IProductService, ProductManager>();
             services.AddControllersWithViews();
         }
 

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ShopApplication.Models;
+using Entity.Entities;
 
 public class ProductViewModel
 {    

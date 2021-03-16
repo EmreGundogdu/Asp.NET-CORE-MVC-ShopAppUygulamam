@@ -1,4 +1,4 @@
-﻿@*@model Product
+﻿@model Product
 
 <form method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -24,13 +24,13 @@
         <input asp-for="ImageUrl" class="form-control" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <label for="CategoryId">Category Id</label>
         <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
             <option selected disabled>Seçiniz</option>
 
         </select>
         <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>
+    </div>*@
     <button type="submit" class="btn btn-dark">Submit</button>
-</form>*@
+</form>
