@@ -37,6 +37,7 @@ namespace ShopApplication
         {            
             if (env.IsDevelopment())
             {
+                //SeedDatabase.Seed();
                 app.UseDeveloperExceptionPage();
             }
             else
