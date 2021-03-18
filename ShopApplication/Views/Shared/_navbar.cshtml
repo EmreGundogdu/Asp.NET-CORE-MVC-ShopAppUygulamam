@@ -1,20 +1,27 @@
 ﻿<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <div class="navbar bg-dark navbar-dark navbar-expand-sm">
     <div class="container">
-        <ul class="navbar-nav">
+        <a href="/" class="navbar-brand">Shop App</a>
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a href="/product/list" class="nav-link">Products</a>
+                <a asp-controller="shop" asp-action="List" class="nav-link">Products</a>
             </li>
             <li class="nav-item">
-                <a href="/product/create" class="nav-link">Add Product</a>
+                <a href="" class="nav-link">Cart</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Link</a>
+                <a href="" class="nav-link">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="admin" asp-action="createproduct" class="nav-link">Add Product</a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="admin" asp-action="productlist" class="nav-link">Admin Products</a>
             </li>
         </ul>
 
         <form action="/product/list" class="form-inline" method="get">
-            <input type="text" name="q" value="" class="form-control mr-2" placeholder="Search"/>
+            <input type="text" name="q" value="" class="form-control mr-2" placeholder="Search" />
             <button class="btn btn-light mr-0" type="submit">Search</button>
         </form>
     </div>
