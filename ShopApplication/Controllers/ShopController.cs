@@ -20,7 +20,7 @@ namespace ShopApplication.Controllers
             {
                 Products = _productService.GetAll()
             };
-            return View(productViewModel)
+            return View(productViewModel);
         }
     }
 }
