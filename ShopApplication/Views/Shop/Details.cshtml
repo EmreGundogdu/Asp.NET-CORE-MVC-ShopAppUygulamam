@@ -1,22 +1,25 @@
 ﻿@model Product
 
-<div class="card mb-3">
-    <div class="card-body">
-        <div class="row no-gutters">
-            <div class="col-md-3">
-                <img src="~/images/@Model.ImageUrl" class="card-img" />
-            </div>
-            <div class="col-md-9">
 
-                <h5 class="card-title">@Model.Name</h5>
-                <h6 class="card-text">@Model.Price</h6>
-                <button type="submit" class="btn btn-dark btn-lg">Add To Cart</button>
-            </div>
+
+<div class="row">
+    <div class="col-md-3">
+        <img src="~/images/@Model.ImageUrl" class="img-fluid" />
+    </div>
+    <div class="col-md-9">
+
+        <h1 class="mb-3">@Model.Name</h1> <hr />
+        <a href="#" class="btn btn-link p-0 mb-3">Telefon | Elektronik</a>
+        <div class="mb-3">
+            <h4 class="text-dark mb-3">
+                <i class="fas fa-lira-sign"></i>@Model.Price
+            </h4>
+            <button type="submit" class="btn btn-dark btn-lg">Add To Cart</button>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p class="p-3">@Model.Description</p>
-            </div>
-        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p class="p-3">@Model.Description</p>
     </div>
 </div>
