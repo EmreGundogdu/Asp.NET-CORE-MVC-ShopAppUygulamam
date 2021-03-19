@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public Product GetById(int id)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetById(id);
         }
 
         public void Update(Product entity)

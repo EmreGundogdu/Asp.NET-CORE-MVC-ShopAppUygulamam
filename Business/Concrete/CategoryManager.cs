@@ -28,7 +28,7 @@ namespace Business.Concrete
 
         public List<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return _categoryRepository.GetAll();
         }
 
         public Category GetById(int id)

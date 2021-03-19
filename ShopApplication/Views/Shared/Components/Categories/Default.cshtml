@@ -1,10 +1,8 @@
-﻿
+﻿@model List<Category>
 <div class="list-group">
     <a class="list-group-item list-group-item-action" href="/product/list">Tüm Kategoriler</a>
-    <a class="list-group-item list-group-item-action" href="/product/list">Telefon</a>
-    <a class="list-group-item list-group-item-action" href="/product/list">Bilgisayar</a>
-    @*@foreach (var category in Model)
+    @foreach (var category in Model)
     {
         <a class="list-group-item list-group-item-action" asp-controller="Product" asp-action="List" asp-route-id="@category.CategoryId">@category.Name</a>
-    }*@
+    }
 </div>

@@ -1,0 +1,22 @@
+﻿@model Product
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row no-gutters">
+            <div class="col-md-3">
+                <img src="~/images/@Model.ImageUrl" class="card-img" />
+            </div>
+            <div class="col-md-9">
+
+                <h5 class="card-title">@Model.Name</h5>
+                <h6 class="card-text">@Model.Price</h6>
+                <button type="submit" class="btn btn-dark btn-lg">Add To Cart</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="p-3">@Model.Description</p>
+            </div>
+        </div>
+    </div>
+</div>

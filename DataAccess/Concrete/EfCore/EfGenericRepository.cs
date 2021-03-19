@@ -40,7 +40,7 @@ namespace DataAccess.Concrete.EfCore
         {
             using (var context = new TContext())
             {
-                return context.Set<TEntity>().Find();
+                return context.Set<TEntity>().Find(id);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entity.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,19 @@ namespace ShopApplication.Controllers
                 Products = _productService.GetAll()
             };
             return View(productViewModel);
+        }
+        public IActionResult Details(int? id)
+        {
+            if (id==null)
+            {
+                return NotFound();
+            }
+            Product product = _productService.GetById((int)id);
+            if (product==null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
     }
 }
