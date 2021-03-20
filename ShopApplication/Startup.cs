@@ -59,13 +59,7 @@ namespace ShopApplication
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "home",
-                    pattern: "home",
-                    defaults: new { controller = "home", action = "index" }
-                );
-
+            {                
                 endpoints.MapControllerRoute(
                     name: "products",
                     pattern: "products",
