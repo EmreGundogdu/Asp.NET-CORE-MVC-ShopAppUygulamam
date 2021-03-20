@@ -5,6 +5,7 @@ using DataAccess.Concrete.EfCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +31,7 @@ namespace ShopApplication
             services.AddScoped<IProductRepository, EfProductRepository>();
             services.AddScoped<ICategoryRepository, EfCategoryRepository>();
 
-            services.AddScoped<IProductService, ProductManager>();            
+            services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
 
             services.AddControllersWithViews();
@@ -38,7 +39,7 @@ namespace ShopApplication
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {            
+        {
             if (env.IsDevelopment())
             {
                 //SeedDatabase.Seed();
@@ -59,6 +60,18 @@ namespace ShopApplication
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "home",
+                    pattern: "home",
+                    defaults: new { controller = "home", action = "index" }
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "products",
+                    pattern: "products",
+                    defaults: new { controller = "shop", action = "list" }
+                );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
