@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entity.Entities;
 using Microsoft.AspNetCore.Mvc;
+using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +30,16 @@ namespace ShopApplication.Controllers
             {
                 return NotFound();
             }
-            Product product = _productService.GetById((int)id);
+            Product product = _productService.GetProductDetails((int)id);
             if (product==null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(new ProductDetailModel
+            {
+                Product = product,
+                Categories = product.ProductCategories.Select(i => i.Category).ToList()
+            });
         }
     }
 }
