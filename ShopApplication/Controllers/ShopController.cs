@@ -24,13 +24,13 @@ namespace ShopApplication.Controllers
             };
             return View(productViewModel);
         }
-        public IActionResult Details(string productname)
+        public IActionResult Details(string url)
         {
-            if (productname == null)
+            if (url == null)
             {
                 return NotFound();
             }
-            Product product = _productService.GetProductDetails(productname);
+            Product product = _productService.GetProductDetails(url);
             if (product==null)
             {
                 return NotFound();

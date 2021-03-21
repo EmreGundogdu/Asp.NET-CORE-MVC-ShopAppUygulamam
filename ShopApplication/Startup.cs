@@ -61,16 +61,16 @@ namespace ShopApplication
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "productdetails",
-                    pattern: "{productname}",
-                    defaults: new { controller = "shop", action = "details" }
-                );
-
-                endpoints.MapControllerRoute(
                     name: "products",
                     pattern: "products/{category?}",
                     defaults: new { controller = "shop", action = "list" }
                 );                
+
+                endpoints.MapControllerRoute(
+                    name: "productdetails",
+                    pattern: "{url}",
+                    defaults: new { controller = "shop", action = "details" }
+                );                               
 
                 endpoints.MapControllerRoute(
                     name: "default",

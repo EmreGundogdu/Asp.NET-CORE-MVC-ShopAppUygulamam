@@ -9,7 +9,7 @@
         </small>
     </div>
     <div class="card-footer text-center">
-        <a asp-controller="shop" asp-action="Details" asp-route-id="@Model.ProductId" class="btn btn-dark btn-sm">Details</a>
+        <a asp-controller="shop" asp-action="Details" asp-route-url="@Model.Url" class="btn btn-dark btn-sm">Details</a>
         <a asp-controller="shop" asp-action="addtocart" asp-route-id="@Model.ProductId" class="btn btn-dark btn-sm">Add To Cart</a>
     </div>
 </div>
