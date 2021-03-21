@@ -59,10 +59,10 @@ namespace ShopApplication
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {                
+            {
                 endpoints.MapControllerRoute(
                     name: "products",
-                    pattern: "products",
+                    pattern: "products/{category?}",
                     defaults: new { controller = "shop", action = "list" }
                 );
 

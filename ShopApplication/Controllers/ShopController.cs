@@ -16,11 +16,11 @@ namespace ShopApplication.Controllers
         {
             _productService = productService;
         }
-        public IActionResult List()
+        public IActionResult List(string category)
         {
             var productViewModel = new ProductListViewModel()
             {
-                Products = _productService.GetAll()
+                Products = _productService.GetProductsByCategory(category)
             };
             return View(productViewModel);
         }

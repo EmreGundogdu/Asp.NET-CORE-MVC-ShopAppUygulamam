@@ -42,6 +42,11 @@ namespace Business.Concrete
             return _productRepository.GetProductDetails(id);
         }
 
+        public List<Product> GetProductsByCategory(string name)
+        {
+            return _productRepository.GetProductsByCategory(name);
+        }
+
         public void Update(Product entity)
         {
             throw new NotImplementedException();
