@@ -12,7 +12,7 @@
 
         @foreach (var item in Model.Categories)
         {
-            <a href="#" class="btn btn-link p-0 mb-3">@item.Name</a>
+            <a asp-controller="Shop" asp-action="list" asp-route-category="@item.Url" class="btn btn-link p-0 mb-3">@item.Name</a>
         }
         <div class="mb-3">
             <h4 class="text-dark mb-3">

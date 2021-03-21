@@ -19,11 +19,11 @@ namespace DataAccess.Concrete.EfCore
             }
         }
 
-        public Product GetProductDetails(int id)
+        public Product GetProductDetails(string url)
         {
             using (var context = new ShopContext())
             {
-                return context.Products.Where(i => i.ProductId == id).Include(i => i.ProductCategories).ThenInclude(i => i.Category).FirstOrDefault();
+                return context.Products.Where(i => i.Url==url).Include(i => i.ProductCategories).ThenInclude(i => i.Category).FirstOrDefault();
             }
         }        
 
@@ -34,7 +34,7 @@ namespace DataAccess.Concrete.EfCore
                 var products = context.Products.AsQueryable();
                 if (!string.IsNullOrEmpty(name))
                 {
-                    products = products.Include(i => i.ProductCategories).ThenInclude(i => i.Category).Where(i => i.ProductCategories.Any(a => a.Category.Name.ToLower() == name.ToLower()));
+                    products = products.Include(i => i.ProductCategories).ThenInclude(i => i.Category).Where(i => i.ProductCategories.Any(a => a.Category.Url == name));
                 }
                 return products.ToList();
             }

@@ -16,8 +16,8 @@ namespace ShopApplication.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            if (RouteData.Values["action"].ToString() == "list")
-                ViewBag.SelectedCategory = RouteData?.Values["id"];
+            if (RouteData.Values["category"] != null)
+                ViewBag.SelectedCategory = RouteData?.Values["category"];
             return View(_categoryService.GetAll());            
         }
     }
