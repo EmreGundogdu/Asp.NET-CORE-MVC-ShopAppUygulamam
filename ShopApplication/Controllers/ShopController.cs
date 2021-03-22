@@ -2,6 +2,7 @@
 using Entity.Entities;
 using Microsoft.AspNetCore.Mvc;
 using ShopApplication.Models;
+using ShopApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,13 @@ namespace ShopApplication.Controllers
             const int pageSize = 3;
             var productViewModel = new ProductListViewModel()
             {
+                PageInfo = new PageInfo()
+                {
+                    TotalItems = _productService.GetCountByCategory(category),
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    CurrentCategory = category
+                },
                 Products = _productService.GetProductsByCategory(category, page, pageSize)
             };
             return View(productViewModel);
