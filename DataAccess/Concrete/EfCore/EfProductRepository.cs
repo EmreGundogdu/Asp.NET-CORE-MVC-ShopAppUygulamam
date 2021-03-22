@@ -30,15 +30,7 @@ namespace DataAccess.Concrete.EfCore
             {
                 return context.Products.Where(i => i.IsApproved && i.IsHome).ToList();
             }
-        }
-
-        public List<Product> GetPopularProducts()
-        {
-            using (var context = new ShopContext())
-            {
-                return context.Products.ToList();
-            }
-        }
+        }        
 
         public Product GetProductDetails(string url)
         {
@@ -61,9 +53,13 @@ namespace DataAccess.Concrete.EfCore
             }
         }
 
-        public List<Product> GetTop5Products()
+        public List<Product> GetSearchResult(string searchString)
         {
-            throw new NotImplementedException();
+            using (var context = new ShopContext())
+            {
+                var products = context.Products.Where(i => i.IsApproved && (i.Name.ToLower().Contains(searchString.ToLower()) || i.Description.ToLower().Contains(searchString.ToLower()))).AsQueryable();                
+                return products.ToList();
+            }
         }
     }
 }

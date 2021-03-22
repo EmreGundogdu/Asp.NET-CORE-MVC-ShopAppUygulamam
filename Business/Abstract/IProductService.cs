@@ -14,6 +14,7 @@ namespace Business.Abstract
         List<Product> GetProductsByCategory(string name,int page,int pageSize);
         List<Product> GetAll();
         List<Product> GetHomePageProducts();
+        List<Product> GetSearchResult(string searchString);
         void Create(Product entity);
         void Update(Product entity);
         void Delete(Product entity);

@@ -1,11 +1,9 @@
 ﻿@model ProductListViewModel
 
-<partial name="_header" />
 
 <div class="row">
     <div class="col-md-3">
         @await Component.InvokeAsync("Categories")
-        <partial name="_search"/>
     </div>
     <div class="col-md-9">
         <div class="row">
@@ -15,7 +13,7 @@
                 <div class="col-md-4">@await Html.PartialAsync("_product", product)</div>
             }
         </div>
-    </div>
+    </div>    
 </div>
 
 

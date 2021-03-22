@@ -50,5 +50,14 @@ namespace ShopApplication.Controllers
                 Categories = product.ProductCategories.Select(i => i.Category).ToList()
             });
         }
+        public IActionResult Search(string q)
+        {
+            const int pageSize = 3;
+            var productViewModel = new ProductListViewModel()
+            {
+                Products = _productService.GetSearchResult(q)
+            };
+            return View(productViewModel);
+        }
     }
 }
