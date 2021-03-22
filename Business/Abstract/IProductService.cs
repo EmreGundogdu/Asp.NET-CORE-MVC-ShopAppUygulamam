@@ -11,7 +11,7 @@ namespace Business.Abstract
     {
         Product GetById(int id);
         Product GetProductDetails(string url);
-        List<Product> GetProductsByCategory(string name);
+        List<Product> GetProductsByCategory(string name,int page,int pageSize);
         List<Product> GetAll();
         void Create(Product entity);
         void Update(Product entity);

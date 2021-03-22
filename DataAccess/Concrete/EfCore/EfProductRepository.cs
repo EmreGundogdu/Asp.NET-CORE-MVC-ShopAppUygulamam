@@ -27,7 +27,7 @@ namespace DataAccess.Concrete.EfCore
             }
         }        
 
-        public List<Product> GetProductsByCategory(string name)
+        public List<Product> GetProductsByCategory(string name, int page, int pageSize)
         {
             using (var context = new ShopContext())
             {
@@ -36,7 +36,7 @@ namespace DataAccess.Concrete.EfCore
                 {
                     products = products.Include(i => i.ProductCategories).ThenInclude(i => i.Category).Where(i => i.ProductCategories.Any(a => a.Category.Url == name));
                 }
-                return products.ToList();
+                return products.Skip((page-1)*pageSize).Take(pageSize).ToList();
             }
         }
 
