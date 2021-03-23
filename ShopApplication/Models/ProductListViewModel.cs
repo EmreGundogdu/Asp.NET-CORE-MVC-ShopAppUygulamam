@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Entity.Entities;
 using System;
 
-namespace ShopApplication.ViewModels
+namespace ShopApplication.Models
 {
     public class PageInfo
     {
