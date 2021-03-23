@@ -2,7 +2,7 @@
 using DataAccess.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ShopApplication.ViewModels;
+using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

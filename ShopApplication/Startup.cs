@@ -66,9 +66,15 @@ namespace ShopApplication
                     defaults: new { controller = "shop", action = "list" }
                 );
                 endpoints.MapControllerRoute(
-                    name: "serach",
+                    name: "search",
                     pattern: "search",
                     defaults: new { controller = "shop", action = "search" }
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "adminproductlist",
+                    pattern: "admin/products",
+                    defaults: new { controller = "admin", action = "productlist" }
                 );
 
                 endpoints.MapControllerRoute(

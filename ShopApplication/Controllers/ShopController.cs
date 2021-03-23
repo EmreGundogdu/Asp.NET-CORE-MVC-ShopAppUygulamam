@@ -2,7 +2,6 @@
 using Entity.Entities;
 using Microsoft.AspNetCore.Mvc;
 using ShopApplication.Models;
-using ShopApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
