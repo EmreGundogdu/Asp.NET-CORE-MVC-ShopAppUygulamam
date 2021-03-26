@@ -48,14 +48,20 @@
                             </td>
                             <td>
                                 <a href="/admin/products/@item.ProductId" class="btn btn-outline-dark btn-sm mr-2">Edit</a>
-                                <a href="#" class="btn btn-outline-dark btn-sm">Delete</a>
+                                <form action="/admin/deleteproduct" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                    <button type="submit" class="btn btn-outline-dark btn-sm">Delete</button>
+                                </form>
+
                             </td>
                         </tr>
                     }
                 }
                 else
                 {
-                    <div class="alert alert-dark"><h3>No Products</h3></div>
+                    <div class="alert alert-dark">
+                        <h3>No Products</h3>
+                    </div>
                 }
             </tbody>
         </table>

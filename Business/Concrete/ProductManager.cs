@@ -64,6 +64,7 @@ namespace Business.Concrete
 
         public void Update(Product entity)
         {
+
             _productRepository.Update(entity);
         }
     }
