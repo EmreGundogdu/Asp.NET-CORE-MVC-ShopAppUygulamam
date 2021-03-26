@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entity.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -40,11 +41,12 @@ namespace ShopApplication.Controllers
                 ImageUrl = model.ImageUrl,
             };
             _productsService.Create(entity);
-            TempData["message"] = new Messages()
+            var msg = new Messages()
             {
                 Message = $"{entity.Name} isimli ürün eklendi",
                 AlertType = "success"
             };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
             return RedirectToAction("ProductList");
         }
         [HttpGet]
@@ -85,11 +87,12 @@ namespace ShopApplication.Controllers
             entity.Description = model.Description;
 
             _productsService.Update(entity);
-            TempData["message"] = new Messages()
+            var msg = new Messages()
             {
                 Message = $"{entity.Name} isimli ürün güncellendi",
                 AlertType = "warning"
             };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
             return RedirectToAction("ProductList");
         }
         public IActionResult DeleteProduct(int productId)
@@ -99,12 +102,13 @@ namespace ShopApplication.Controllers
             {
                 _productsService.Delete(entity);
             }
-            TempData["message"] = new Messages()
+            var msg = new Messages()
             {
                 Message = $"{entity.Name} isimli ürün silindi",
-                AlertType = "danger"
+                AlertType = "delete"
             };
-                
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+
             return RedirectToAction("ProductList");
         }
     }
