@@ -15,8 +15,8 @@ namespace DataAccess.Concrete.EfCore
         {
             using (var context = new ShopContext())
             {
-                var cmd = "delete from ProductCategory where ProductId=@p0 and CategoryId=@p1";
-                context.Database.ExecuteSqlRaw(cmd,productId,categoryId);
+                var cmd = "delete from ProductCategory where CategoryId=@p1 and ProductId=@p1";
+                context.Database.ExecuteSqlRaw(cmd,categoryId,productId);
             }
         }
 

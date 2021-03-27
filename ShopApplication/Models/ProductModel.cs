@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace ShopApplication.Models
         public bool IsApproved { get; set; }
         public string Url { get; set; }
         public bool IsHome { get; set; }
+        public List<Category> SelectedCategories { get; set; }
     }
 }

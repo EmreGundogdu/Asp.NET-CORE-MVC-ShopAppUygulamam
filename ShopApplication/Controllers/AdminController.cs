@@ -95,7 +95,7 @@ namespace ShopApplication.Controllers
             {
                 return NotFound();
             }
-            var entity = _productsService.GetById((int)id);
+            var entity = _productsService.GetByIdWithCategories((int)id);
             if (entity==null)
             {
                 return NotFound();
@@ -107,12 +107,14 @@ namespace ShopApplication.Controllers
                 Url = entity.Url,
                 Price = entity.Price,
                 ImageUrl = entity.ImageUrl,
-                Description = entity.Description
+                Description = entity.Description,
+                SelectedCategories = entity.ProductCategories.Select(i => i.Category).ToList()
             };
+            ViewBag.Categories = _categoryService.GetAll();
             return View(new ProductModel());
         }
         [HttpPost]
-        public IActionResult ProductEdit(ProductModel model)
+        public IActionResult ProductEdit(ProductModel model,int[] categoryIds)
         {
             var entity = _productsService.GetById(model.ProductId);
             if (entity == null)
@@ -123,9 +125,9 @@ namespace ShopApplication.Controllers
             entity.Price = model.Price;
             entity.Url = model.Url;
             entity.ImageUrl = model.ImageUrl;
-            entity.Description = model.Description;
+            entity.Description = model.Description;           
 
-            _productsService.Update(entity);
+            _productsService.Update(entity,categoryIds);
             var msg = new Messages()
             {
                 Message = $"{entity.Name} İsimli Ürün Güncellendi",
@@ -218,7 +220,8 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult DeleteFromCategory(int productId,int categoryId)
         {
-            _categoryService.DeleteFromCategory(productId,categoryId)
+            _categoryService.DeleteFromCategory(productId, categoryId);
+            return Redirect("/admin/categories/" + categoryId);
         }
     }
 }
