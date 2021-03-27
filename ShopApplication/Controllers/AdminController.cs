@@ -162,7 +162,7 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult CategoryEdit(CategoryModel model)
         {
-            var entity = _categoryService.GetById(model.CategoryId);
+            var entity = _categoryService.GetByIdWithProducts(model.CategoryId);
             if (entity == null)
             {
                 return NotFound();
