@@ -2,15 +2,15 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h1>Admin Products</h1>
-        <hr />
-        <a class="btn btn-outline-dark" href="/admin/categories/create">Add Category</a>
-        <table class="table table-bordered">
+        <h1 class="h3">Admin Categories</h1>
+        <hr>
+        <a class="btn btn-primary btn-sm" href="/admin/categories/create">Add Category</a>
+        <table class="table table-bordered mt-3">
             <thead>
                 <tr>
-                    <td style="width:30px;">Id</td>
-                    <td style="width:100px;">Name</td>
-                    <td style="width:150px;"></td>
+                    <td style="width: 30px;">Id</td>
+                    <td>Name</td>
+                    <td style="width: 150px;"></td>
                 </tr>
             </thead>
             <tbody>
@@ -20,25 +20,26 @@
                     {
                         <tr>
                             <td>@item.CategoryId</td>
-                            <td>@item.Name</td>                          
-                            
+                            <td>@item.Name</td>
                             <td>
                                 <a href="/admin/categories/@item.CategoryId" class="btn btn-outline-dark btn-sm mr-2">Edit</a>
-                                <form action="/admin/deletecategory" method="post" style="display:inline;">
-                                    <input type="hidden" name="productId" value="@item.CategoryId" />
+
+                                <form action="/admin/deletecategory" method="POST" style="display: inline;">
+                                    <input type="hidden" name="categoryId" value="@item.CategoryId">
                                     <button type="submit" class="btn btn-outline-dark btn-sm">Delete</button>
                                 </form>
-
                             </td>
                         </tr>
                     }
                 }
                 else
                 {
-                    <div class="alert alert-dark">
+                    <div class="alert alert-warning">
                         <h3>No Categories</h3>
                     </div>
                 }
+
+
             </tbody>
         </table>
     </div>

@@ -30,10 +30,22 @@ namespace ShopApplication.Controllers
             {
                 Products = _productsService.GetAll()
             }); 
-        }     
+        }
+        public IActionResult CategoryList()
+        {
+            return View(new CategorytListViewModel()
+            {
+                Categories = _categoryService.GetAll()
+            });
+        }
+        [HttpGet]
+        public IActionResult ProductCreate()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public IActionResult CreateProduct(ProductModel model)
+        public IActionResult ProductCreate(ProductModel model)
         {
             var entity = new Product()
             {
@@ -46,14 +58,38 @@ namespace ShopApplication.Controllers
             _productsService.Create(entity);
             var msg = new Messages()
             {
-                Message = $"{entity.Name} isimli ürün eklendi",
+                Message = $"{entity.Name} İsimli Ürün Eklendi",
                 AlertType = "success"
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);
             return RedirectToAction("ProductList");
         }
+
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public IActionResult CategoryCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CategoryCreate(CategoryModel model)
+        {
+            var entity = new Category()
+            {
+                Name = model.Name,
+                Url = model.Url
+            };
+            _categoryService.Create(entity);
+            var msg = new Messages()
+            {
+                Message = $"{entity.Name} İsimli Kategori Eklendi",
+                AlertType = "success"
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+            return RedirectToAction("CategoryList");
+        }
+        [HttpGet]
+        public IActionResult ProductEdit(int? id)
         {
             if (id==null)
             {
@@ -76,7 +112,7 @@ namespace ShopApplication.Controllers
             return View(new ProductModel());
         }
         [HttpPost]
-        public IActionResult Edit(ProductModel model)
+        public IActionResult ProductEdit(ProductModel model)
         {
             var entity = _productsService.GetById(model.ProductId);
             if (entity == null)
@@ -92,11 +128,59 @@ namespace ShopApplication.Controllers
             _productsService.Update(entity);
             var msg = new Messages()
             {
-                Message = $"{entity.Name} isimli ürün güncellendi",
+                Message = $"{entity.Name} İsimli Ürün Güncellendi",
                 AlertType = "warning"
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);
             return RedirectToAction("ProductList");
+        }
+
+        [HttpGet]
+        public IActionResult CategoryEdit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var entity = _categoryService.GetById((int)id);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CategoryModel()
+            {
+                CategoryId = entity.CategoryId,
+                Name = entity.Name,
+                Url = entity.Url
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult CategoryEdit(CategoryModel model)
+        {
+            var entity = _categoryService.GetById(model.CategoryId);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            entity.Name = model.Name;
+            entity.Url = model.Url;
+
+            _categoryService.Update(entity);
+
+            var msg = new Messages()
+            {
+                Message = $"{entity.Name} İsimli Kategori güncellendi.",
+                AlertType = "warning"
+            };
+
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+
+            return RedirectToAction("CategoryList");
         }
         public IActionResult DeleteProduct(int productId)
         {
@@ -107,12 +191,28 @@ namespace ShopApplication.Controllers
             }
             var msg = new Messages()
             {
-                Message = $"{entity.Name} isimli ürün silindi",
-                AlertType = "delete"
+                Message = $"{entity.Name} İsimli Ürün Silindi",
+                AlertType = "danger"
             };
             TempData["message"] = JsonConvert.SerializeObject(msg);
 
             return RedirectToAction("ProductList");
+        }
+        public IActionResult DeleteCategory(int categoryId)
+        {
+            var entity = _categoryService.GetById(categoryId);
+            if (entity != null)
+            {
+                _categoryService.Delete(entity);
+            }
+            var msg = new Messages()
+            {
+                Message = $"{entity.Name} İsimli Kategori Silindi",
+                AlertType = "danger"
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
+
+            return RedirectToAction("CategoryList");
         }
     }
 }
