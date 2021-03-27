@@ -143,7 +143,7 @@ namespace ShopApplication.Controllers
                 return NotFound();
             }
 
-            var entity = _categoryService.GetById((int)id);
+            var entity = _categoryService.GetByIdWithProducts((int)id);
 
             if (entity == null)
             {
@@ -154,7 +154,8 @@ namespace ShopApplication.Controllers
             {
                 CategoryId = entity.CategoryId,
                 Name = entity.Name,
-                Url = entity.Url
+                Url = entity.Url,
+                Products = entity.ProductCategories.Select(p => p.Product).ToList()
             };
             return View(model);
         }
@@ -162,7 +163,7 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult CategoryEdit(CategoryModel model)
         {
-            var entity = _categoryService.GetByIdWithProducts(model.CategoryId);
+            var entity = _categoryService.GetById(model.CategoryId);
             if (entity == null)
             {
                 return NotFound();

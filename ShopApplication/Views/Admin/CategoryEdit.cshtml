@@ -4,7 +4,7 @@
 <hr>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <form asp-controller="Admin" asp-action="CategoryEdit" method="POST">
             <input type="hidden" name="CategoryId" value="@Model.CategoryId">
             <div class="form-group row">
@@ -25,5 +25,62 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">                
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <td style="width: 30px;">Id</td>
+                            <td style="width: 100px;">Image</td>
+                            <td>Name</td>
+                            <td style="width: 20px;">Price</td>
+                            <td style="width: 20px;">Onaylı</td>
+                            <td style="width: 150px;"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Products.Count > 0)
+                        {
+                            @foreach (var item in Model.Products)
+                            {
+                                <tr>
+                                    <td>@item.ProductId</td>
+                                    <td><img src="~/img/@item.ImageUrl" width="80"></td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Price</td>                                    
+                                    <td>
+                                        @if (item.IsApproved)
+                                        {
+                                            <i class="fas fa-check-circle"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-times-circle"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="/admin/products/@item.ProductId" class="btn btn-dark btn-sm mr-2">Edit</a>
+
+                                        <form action="/admin/deleteproduct" method="POST" style="display: inline;">
+                                            <input type="hidden" name="productId" value="@item.ProductId">
+                                            <button type="submit" class="btn btn-dark btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning">
+                                <h3>No Products</h3>
+                            </div>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
