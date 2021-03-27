@@ -13,9 +13,12 @@ namespace ShopApplication.Controllers
     public class AdminController : Controller
     {
         private IProductService _productsService;
-        public AdminController(IProductService productService)
+        private ICategoryService _categoryService;
+
+        public AdminController(IProductService productService,ICategoryService categoryService)
         {
             _productsService = productService;
+            _categoryService = categoryService;
         }
         public IActionResult Index()
         {
