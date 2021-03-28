@@ -75,6 +75,15 @@
                     <label class="custom-control-label" for="category_@(item.CategoryId)">@item.Name</label>
                 </div>
             }
+            <hr />
+            <div class="custom-control custom-checkbox">
+                <input asp-for="IsApproved" type="checkbox" class="custom-control-input">
+                <label asp-for="IsApproved" class="custom-control-label"></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input asp-for="IsHome" type="checkbox" class="custom-control-input">
+                <label asp-for="IsHome" class="custom-control-label"></label>
+            </div>
         </div>
     </div>
 

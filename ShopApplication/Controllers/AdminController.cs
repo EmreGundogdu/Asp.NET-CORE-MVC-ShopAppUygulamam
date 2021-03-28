@@ -117,6 +117,8 @@ namespace ShopApplication.Controllers
                 Price = entity.Price,
                 ImageUrl = entity.ImageUrl,
                 Description = entity.Description,
+                IsApproved = entity.IsApproved,
+                IsHome = entity.IsHome,
                 SelectedCategories = entity.ProductCategories.Select(i => i.Category).ToList()
             };            
             return View(new ProductModel());
@@ -136,15 +138,16 @@ namespace ShopApplication.Controllers
                 entity.Url = model.Url;
                 entity.ImageUrl = model.ImageUrl;
                 entity.Description = model.Description;
+                entity.IsHome = model.IsHome;
+                entity.IsApproved = model.IsApproved;
 
-                _productsService.Update(entity, categoryIds);
-                var msg = new Messages()
+                
+                if (_productsService.Update(entity, categoryIds))
                 {
-                    Message = $"{entity.Name} İsimli Ürün Güncellendi",
-                    AlertType = "warning"
-                };
-                TempData["message"] = JsonConvert.SerializeObject(msg);
-                return RedirectToAction("ProductList");
+                    CreateMessage("Kayıt Güncellendi", "success");
+                    return RedirectToAction("ProductList");
+                }
+                CreateMessage(_productsService.ErrorMessage, "danger");                
             }
             ViewBag.Categories = _categoryService.GetAll();
             return View(model);
