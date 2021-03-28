@@ -78,19 +78,24 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult CategoryCreate(CategoryModel model)
         {
-            var entity = new Category()
+            if (ModelState.IsValid)
             {
-                Name = model.Name,
-                Url = model.Url
-            };
-            _categoryService.Create(entity);
-            var msg = new Messages()
-            {
-                Message = $"{entity.Name} İsimli Kategori Eklendi",
-                AlertType = "success"
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
-            return RedirectToAction("CategoryList");
+                var entity = new Category()
+                {
+                    Name = model.Name,
+                    Url = model.Url
+                };
+                _categoryService.Create(entity);
+                var msg = new Messages()
+                {
+                    Message = $"{entity.Name} İsimli Kategori Eklendi",
+                    AlertType = "success"
+                };
+                TempData["message"] = JsonConvert.SerializeObject(msg);
+                return RedirectToAction("CategoryList");
+            }
+            return View(model);
+            
         }
         [HttpGet]
         public IActionResult ProductEdit(int? id)
@@ -113,8 +118,7 @@ namespace ShopApplication.Controllers
                 ImageUrl = entity.ImageUrl,
                 Description = entity.Description,
                 SelectedCategories = entity.ProductCategories.Select(i => i.Category).ToList()
-            };
-            ViewBag.Categories = _categoryService.GetAll();
+            };            
             return View(new ProductModel());
         }
         [HttpPost]
@@ -175,25 +179,30 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult CategoryEdit(CategoryModel model)
         {
-            var entity = _categoryService.GetById(model.CategoryId);
-            if (entity == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var entity = _categoryService.GetById(model.CategoryId);
+                if (entity == null)
+                {
+                    return NotFound();
+                }
+                entity.Name = model.Name;
+                entity.Url = model.Url;
+
+                _categoryService.Update(entity);
+
+                var msg = new Messages()
+                {
+                    Message = $"{entity.Name} İsimli Kategori güncellendi.",
+                    AlertType = "warning"
+                };
+
+                TempData["message"] = JsonConvert.SerializeObject(msg);
+
+                return RedirectToAction("CategoryList");
             }
-            entity.Name = model.Name;
-            entity.Url = model.Url;
-
-            _categoryService.Update(entity);
-
-            var msg = new Messages()
-            {
-                Message = $"{entity.Name} İsimli Kategori güncellendi.",
-                AlertType = "warning"
-            };
-
-            TempData["message"] = JsonConvert.SerializeObject(msg);
-
-            return RedirectToAction("CategoryList");
+            return View(model);
+            
         }
         public IActionResult DeleteProduct(int productId)
         {
