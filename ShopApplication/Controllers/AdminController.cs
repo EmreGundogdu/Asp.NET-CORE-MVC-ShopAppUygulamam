@@ -217,12 +217,12 @@ namespace ShopApplication.Controllers
 
             return RedirectToAction("CategoryList");
         }
-        [HttpPost]
-        public IActionResult DeleteFromCategory(int productId,int categoryId)
-        {
-            _categoryService.DeleteFromCategory(productId, categoryId);
-            return Redirect("/admin/categories/" + categoryId);
-        }
+        //[HttpPost]
+        //public IActionResult DeleteFromCategory(int productId,int categoryId)
+        //{
+        //    _categoryService.DeleteFromCategory(productId, categoryId);
+        //    return Redirect("/admin/categories/" + categoryId);
+        //}
     }
 }
 
