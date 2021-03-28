@@ -109,6 +109,9 @@ namespace Business.Concrete
             }
             return isValid;
         }
+
+        
+
         public string ErrorMessage { get; set ; }
     }
 }

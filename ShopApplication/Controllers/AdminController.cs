@@ -1,10 +1,12 @@
 ﻿using Business.Abstract;
 using Entity.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,7 +64,7 @@ namespace ShopApplication.Controllers
                     CreateMessage("Kayıt Eklendi", "success");
                     return RedirectToAction("ProductList");
                 }
-                CreateMessage(_productsService.ErrorMessage,"danger")
+                CreateMessage(_productsService.ErrorMessage, "danger");
                 return View(model);
             }
             return View(model);
@@ -124,7 +126,7 @@ namespace ShopApplication.Controllers
             return View(new ProductModel());
         }
         [HttpPost]
-        public IActionResult ProductEdit(ProductModel model,int[] categoryIds)
+        public async Task<IActionResult> ProductEdit(ProductModel model,int[] categoryIds,IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -136,11 +138,21 @@ namespace ShopApplication.Controllers
                 entity.Name = model.Name;
                 entity.Price = model.Price;
                 entity.Url = model.Url;
-                entity.ImageUrl = model.ImageUrl;
                 entity.Description = model.Description;
                 entity.IsHome = model.IsHome;
                 entity.IsApproved = model.IsApproved;
-
+                if (file!=null)
+                {
+                    entity.ImageUrl = file.FileName;
+                    var extension = Path.GetExtension(file.FileName);
+                    var randomName = string.Format($"{Guid.NewGuid()}{extension}");
+                    entity.ImageUrl = randomName;
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images",randomName);
+                    using (var stream = new FileStream(path,FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                }
                 
                 if (_productsService.Update(entity, categoryIds))
                 {

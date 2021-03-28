@@ -16,7 +16,7 @@ namespace Business.Abstract
         List<Product> GetHomePageProducts();
         List<Product> GetSearchResult(string searchString);
         bool Create(Product entity);
-        bool Update(Product entity);
+        void Update(Product entity);
         void Delete(Product entity);
         int GetCountByCategory(string category);
         Product GetByIdWithCategories(int id);
