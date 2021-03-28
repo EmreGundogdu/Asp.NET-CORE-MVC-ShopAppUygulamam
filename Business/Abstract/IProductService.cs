@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IProductService
+    public interface IProductService:IValidator<Product>
     {
         Product GetById(int id);
         Product GetProductDetails(string url);
@@ -15,11 +15,11 @@ namespace Business.Abstract
         List<Product> GetAll();
         List<Product> GetHomePageProducts();
         List<Product> GetSearchResult(string searchString);
-        void Create(Product entity);
-        void Update(Product entity);
+        bool Create(Product entity);
+        bool Update(Product entity);
         void Delete(Product entity);
         int GetCountByCategory(string category);
         Product GetByIdWithCategories(int id);
-        void Update(Product entity, int[] categoryIds);
+        bool Update(Product entity, int[] categoryIds);
     }
 }

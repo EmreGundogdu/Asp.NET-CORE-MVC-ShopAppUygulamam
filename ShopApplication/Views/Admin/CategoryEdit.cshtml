@@ -27,11 +27,22 @@
                     <button type="submit" class="btn btn-dark">Save Category</button>
                 </div>
             </div>
+            <div id="products">
+                @for (int i = 0; i < Model.Products.Count; i++)
+                {
+                    <input type="hidden" name="Products[@i].ProductId" value="@Model.Products[i].ProductId" />
+                    <input type="hidden" name="Products[@i].ImageUrl" value="@Model.Products[i].ImageUrl" />
+                    <input type="hidden" name="Products[@i].Name" value="@Model.Products[i].Name" />
+                    <input type="hidden" name="Products[@i].Price" value="@Model.Products[i].Price" />
+                    <input type="hidden" name="Products[@i].IsApproved" value="@Model.Products[i].IsApproved.ToString()" />
+                }
+            </div>
         </form>
     </div>
     <div class="col-md-8">
         <div class="row">
-            <div class="col-md-12">                
+            <div class="col-md-12">      
+                
                 <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
@@ -45,14 +56,14 @@
                     </thead>
                     <tbody>
                         @if (Model.Products.Count > 0)
-                        {
+                        {                        
                             @foreach (var item in Model.Products)
                             {
                                 <tr>
                                     <td>@item.ProductId</td>
                                     <td><img src="~/images/@item.ImageUrl" width="80"></td>
                                     <td>@item.Name</td>
-                                    <td>@item.Price</td>                                    
+                                    <td>@item.Price</td>
                                     <td>
                                         @if (item.IsApproved)
                                         {

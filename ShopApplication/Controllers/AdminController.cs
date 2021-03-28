@@ -57,16 +57,16 @@ namespace ShopApplication.Controllers
                     Description = model.Description,
                     ImageUrl = model.ImageUrl,
                 };
-                _productsService.Create(entity);
-                var msg = new Messages()
+                if (_productsService.Create(entity))
                 {
-                    Message = $"{entity.Name} İsimli Ürün Eklendi",
-                    AlertType = "success"
-                };
-                TempData["message"] = JsonConvert.SerializeObject(msg);
-                return RedirectToAction("ProductList");
+                    CreateMessage("Kayıt Eklendi", "success");
+                    return RedirectToAction("ProductList");
+                }
+                CreateMessage(_productsService.ErrorMessage,"danger")
+                return View(model);
             }
             return View(model);
+            
         }
 
         [HttpGet]
@@ -241,6 +241,15 @@ namespace ShopApplication.Controllers
         {
             _categoryService.DeleteFromCategory(productıd, categoryıd);
             return Redirect("/admin/categories/" + categoryıd);
+        }
+        private void CreateMessage(string message,string alertType)
+        {
+            var msg = new Messages()
+            {
+                Message = message,
+                AlertType = alertType
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
         }
     }
 }
