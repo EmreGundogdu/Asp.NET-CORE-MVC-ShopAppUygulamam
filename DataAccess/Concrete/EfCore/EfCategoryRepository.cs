@@ -11,14 +11,14 @@ namespace DataAccess.Concrete.EfCore
 {
     public class EfCategoryRepository : EfGenericRepository<Category, ShopContext>, ICategoryRepository
     {
-        //public void DeleteFromCategory(int productId, int categoryId)
-        //{
-        //    using (var context = new ShopContext())
-        //    {
-        //        var cmd = "delete from ProductCategory where CategoryId=@p1 and ProductId=@p1";
-        //        context.Database.ExecuteSqlRaw(cmd,categoryId,productId);
-        //    }
-        //}
+        public void DeleteFromCategory(int productId, int categoryId)
+        {
+            using (var context = new ShopContext())
+            {
+                var cmd = "delete from ProductCategory where CategoryId=@p1 and ProductId=@p1";
+                context.Database.ExecuteSqlRaw(cmd, categoryId, productId);
+            }
+        }
 
         public Category GetByIdWithProducts(int categoryId)
         {

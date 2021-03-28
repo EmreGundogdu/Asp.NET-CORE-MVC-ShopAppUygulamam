@@ -47,22 +47,26 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult ProductCreate(ProductModel model)
         {
-            var entity = new Product()
+            if (ModelState.IsValid)
             {
-                Name = model.Name,
-                Url = model.Url,
-                Price = model.Price,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-            };
-            _productsService.Create(entity);
-            var msg = new Messages()
-            {
-                Message = $"{entity.Name} İsimli Ürün Eklendi",
-                AlertType = "success"
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
-            return RedirectToAction("ProductList");
+                var entity = new Product()
+                {
+                    Name = model.Name,
+                    Url = model.Url,
+                    Price = model.Price,
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl,
+                };
+                _productsService.Create(entity);
+                var msg = new Messages()
+                {
+                    Message = $"{entity.Name} İsimli Ürün Eklendi",
+                    AlertType = "success"
+                };
+                TempData["message"] = JsonConvert.SerializeObject(msg);
+                return RedirectToAction("ProductList");
+            }
+            return View(model);
         }
 
         [HttpGet]
@@ -90,7 +94,7 @@ namespace ShopApplication.Controllers
         }
         [HttpGet]
         public IActionResult ProductEdit(int? id)
-        {
+        {            
             if (id==null)
             {
                 return NotFound();
@@ -116,25 +120,31 @@ namespace ShopApplication.Controllers
         [HttpPost]
         public IActionResult ProductEdit(ProductModel model,int[] categoryIds)
         {
-            var entity = _productsService.GetById(model.ProductId);
-            if (entity == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
-            }
-            entity.Name = model.Name;
-            entity.Price = model.Price;
-            entity.Url = model.Url;
-            entity.ImageUrl = model.ImageUrl;
-            entity.Description = model.Description;           
+                var entity = _productsService.GetById(model.ProductId);
+                if (entity == null)
+                {
+                    return NotFound();
+                }
+                entity.Name = model.Name;
+                entity.Price = model.Price;
+                entity.Url = model.Url;
+                entity.ImageUrl = model.ImageUrl;
+                entity.Description = model.Description;
 
-            _productsService.Update(entity,categoryIds);
-            var msg = new Messages()
-            {
-                Message = $"{entity.Name} İsimli Ürün Güncellendi",
-                AlertType = "warning"
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
-            return RedirectToAction("ProductList");
+                _productsService.Update(entity, categoryIds);
+                var msg = new Messages()
+                {
+                    Message = $"{entity.Name} İsimli Ürün Güncellendi",
+                    AlertType = "warning"
+                };
+                TempData["message"] = JsonConvert.SerializeObject(msg);
+                return RedirectToAction("ProductList");
+            }
+            ViewBag.Categories = _categoryService.GetAll();
+            return View(model);
+            
         }
 
         [HttpGet]
@@ -217,12 +227,12 @@ namespace ShopApplication.Controllers
 
             return RedirectToAction("CategoryList");
         }
-        //[HttpPost]
-        //public IActionResult DeleteFromCategory(int productId,int categoryId)
-        //{
-        //    _categoryService.DeleteFromCategory(productId, categoryId);
-        //    return Redirect("/admin/categories/" + categoryId);
-        //}
+        [HttpPost]
+        public IActionResult DeleteFromCategory(int productıd, int categoryıd)
+        {
+            _categoryService.DeleteFromCategory(productıd, categoryıd);
+            return Redirect("/admin/categories/" + categoryıd);
+        }
     }
 }
 
