@@ -19,9 +19,34 @@ namespace ShopApplication.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl=null)
         {
-            return View();
+            return View(new LoginModel()
+            {
+                ReturnUrl = returnUrl
+            });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            //var user = await _userManager.FindByIdAsync(model.UserName);
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user==null)
+            {
+                ModelState.AddModelError("", "Bu Kullanıcı Adı İle Bir Kullanıcı Bulunamadı");
+                return View(model);
+            }
+            var result = await _signInManager.PasswordSignInAsync(user,model.Password,true,false);
+            if (result.Succeeded)
+            {
+                return Redirect(model.ReturnUrl);
+            }
+            ModelState.AddModelError("", "Girilen Kullanıcı Adı Veya Parola Yanlış");
+            return View(model);
         }
         public IActionResult Register()
         {
