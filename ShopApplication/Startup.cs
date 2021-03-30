@@ -50,7 +50,7 @@ namespace ShopApplication
                 //options.User.AllowedUserNameCharacters = 
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
-                //options.SignIn.RequireConfirmedPhoneNumber = true;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
 
 
             });

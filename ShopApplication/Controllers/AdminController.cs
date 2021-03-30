@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entity.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace ShopApplication.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductService _productsService;
