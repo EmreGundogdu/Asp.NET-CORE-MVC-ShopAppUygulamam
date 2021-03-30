@@ -3,9 +3,12 @@
     <div class="container">
         <a href="/" class="navbar-brand">Shop App</a>
         <ul class="navbar-nav mr-auto">
+            
             <li class="nav-item">
                 <a href="/products" class="nav-link">Products</a>
             </li>
+            @if (User.Identity.IsAuthenticated)
+            {
             <li class="nav-item">
                 <a href="" class="nav-link">Cart</a>
             </li>
@@ -18,6 +21,27 @@
             <li class="nav-item">
                 <a href="/admin/categories" class="nav-link">Admin Categories</a>
             </li>
-        </ul>        
+            }
+        </ul>     
+        <ul class="navbar-nav ml-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">
+                    <a href="/account/manage" class="nav-link">@User.Identity.Name</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/account/logout" class="nav-link">Logout</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a href="/account/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/account/register" class="nav-link">Register</a>
+                </li>
+            }
+        </ul>
     </div>
 </div>

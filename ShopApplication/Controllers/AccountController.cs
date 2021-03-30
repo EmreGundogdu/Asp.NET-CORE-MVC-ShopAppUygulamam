@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShopApplication.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
         private UserManager<User> _userManager;
@@ -27,6 +28,7 @@ namespace ShopApplication.Controllers
             });
         }
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (!ModelState.IsValid)
@@ -43,7 +45,7 @@ namespace ShopApplication.Controllers
             var result = await _signInManager.PasswordSignInAsync(user,model.Password,true,false);
             if (result.Succeeded)
             {
-                return Redirect(model.ReturnUrl);
+                return Redirect(model.ReturnUrl??"~/");
             }
             ModelState.AddModelError("", "Girilen Kullanıcı Adı Veya Parola Yanlış");
             return View(model);
@@ -53,6 +55,7 @@ namespace ShopApplication.Controllers
             return View();
         }
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -72,7 +75,11 @@ namespace ShopApplication.Controllers
                 return RedirectToAction("Login", "Account");
             }
             return View();
-            
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

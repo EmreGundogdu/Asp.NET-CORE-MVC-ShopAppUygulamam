@@ -64,7 +64,8 @@ namespace ShopApplication
                 options.Cookie = new CookieBuilder
                 {
                     HttpOnly = true,
-                    Name = ".Shop.Security.Cookie"
+                    Name = ".Shop.Security.Cookie",
+                    SameSite = SameSiteMode.Strict
                 };
             });
 
