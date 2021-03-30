@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopApplication.Identity;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,39 @@ namespace ShopApplication
         {
             services.AddDbContext<ApplicationContext>(options=> options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=shopDb;Trusted_Connection=true"));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 6;
+                //lockout
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.AllowedForNewUsers = true;
+
+                //options.User.AllowedUserNameCharacters = 
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+                //options.SignIn.RequireConfirmedPhoneNumber = true;
+
+
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/account/login";
+                options.LogoutPath = "/account/logout";
+                options.AccessDeniedPath = "/account/accessdenied";
+                options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromDays(15);
+                options.Cookie = new CookieBuilder
+                {
+                    HttpOnly = true,
+                    Name = ".Shop.Security.Cookie"
+                };
+            });
 
             services.AddScoped<IProductRepository, EfProductRepository>();
             services.AddScoped<ICategoryRepository, EfCategoryRepository>();
