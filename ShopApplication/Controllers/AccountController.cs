@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShopApplication.Identity;
 using ShopApplication.Models;
 using System;
@@ -42,6 +43,11 @@ namespace ShopApplication.Controllers
                 ModelState.AddModelError("", "Bu Kullanıcı Adı İle Bir Kullanıcı Bulunamadı");
                 return View(model);
             }
+            if (!await _userManager.IsEmailConfirmedAsync(user))
+            {
+                ModelState.AddModelError("", "Lütfen Mail Hesabınıza Gelen Link İle Hesabınızı Onaylayınız");
+                return View(model);
+            }
             var result = await _signInManager.PasswordSignInAsync(user,model.Password,true,false);
             if (result.Succeeded)
             {
@@ -73,6 +79,12 @@ namespace ShopApplication.Controllers
             if (result.Succeeded)
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var url = Url.Action("ConfirmEmail","Account",new
+                {
+                    userId = user.Id,
+                    token = code
+                });
+
                 return RedirectToAction("Login", "Account");
             }
             return View();
@@ -84,7 +96,32 @@ namespace ShopApplication.Controllers
         }
         public async Task<IActionResult> ConfirmEmail(string userId,string token)
         {
+            if (userId==null||token==null)
+            {
+                CreateMessage("Geçersiz Token", "danger");
+                return View();
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user!=null)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+                if (result.Succeeded)
+                {
+                    CreateMessage("Hesabınız Onaylandı", "success");
+                    return View();
+                }
+            }
+            CreateMessage("Hesabınız Onaylanmadı", "warning");
             return View();
+        }
+        private void CreateMessage(string message, string alertType)
+        {
+            var msg = new Messages()
+            {
+                Message = message,
+                AlertType = alertType
+            };
+            TempData["message"] = JsonConvert.SerializeObject(msg);
         }
     }
 }
