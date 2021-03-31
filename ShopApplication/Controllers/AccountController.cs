@@ -72,6 +72,7 @@ namespace ShopApplication.Controllers
             var result = await _userManager.CreateAsync(user,model.Password);
             if (result.Succeeded)
             {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 return RedirectToAction("Login", "Account");
             }
             return View();
@@ -80,6 +81,10 @@ namespace ShopApplication.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+        public async Task<IActionResult> ConfirmEmail(string userId,string token)
+        {
+            return View();
         }
     }
 }
