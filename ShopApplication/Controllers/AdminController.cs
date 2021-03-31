@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ShopApplication.Extensions;
 using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -63,10 +64,22 @@ namespace ShopApplication.Controllers
                 };
                 if (_productsService.Create(entity))
                 {
-                    CreateMessage("Kayıt Eklendi", "success");
+                    TempData.Put("message", new Messages()
+                    {
+                        Title = "Kayıt Eklendi",
+                        Message = "Kayıt Eklendi",
+                        AlertType = "success"
+
+                    });
                     return RedirectToAction("ProductList");
                 }
-                CreateMessage(_productsService.ErrorMessage, "danger");
+                TempData.Put("message", new Messages()
+                {
+                    Title = "Hata",
+                    Message = _productsService.ErrorMessage,
+                    AlertType = "danger"
+
+                });
                 return View(model);
             }
             return View(model);
@@ -158,10 +171,22 @@ namespace ShopApplication.Controllers
                 
                 if (_productsService.Update(entity, categoryIds))
                 {
-                    CreateMessage("Kayıt Güncellendi", "success");
+                    TempData.Put("message", new Messages()
+                    {
+                        Title = "Kayıt Güncellendi",
+                        Message = "Kayıt Güncellendi",
+                        AlertType = "success"
+
+                    });
                     return RedirectToAction("ProductList");
                 }
-                CreateMessage(_productsService.ErrorMessage, "danger");                
+                TempData.Put("message", new Messages()
+                {
+                    Title = "Hata",
+                    Message = _productsService.ErrorMessage,
+                    AlertType = "danger"
+
+                });          
             }
             ViewBag.Categories = _categoryService.GetAll();
             return View(model);
@@ -207,15 +232,13 @@ namespace ShopApplication.Controllers
                 entity.Url = model.Url;
 
                 _categoryService.Update(entity);
-
-                var msg = new Messages()
+                TempData.Put("message", new Messages()
                 {
-                    Message = $"{entity.Name} İsimli Kategori güncellendi.",
+                    Title = "Kayıt Güncellendi",
+                    Message = $"{entity.Name} İsimli Kategori Güncellendi.",
                     AlertType = "warning"
-                };
 
-                TempData["message"] = JsonConvert.SerializeObject(msg);
-
+                });                
                 return RedirectToAction("CategoryList");
             }
             return View(model);
@@ -228,12 +251,13 @@ namespace ShopApplication.Controllers
             {
                 _productsService.Delete(entity);
             }
-            var msg = new Messages()
+            TempData.Put("message", new Messages()
             {
+                Title = "Kayıt Silindi",
                 Message = $"{entity.Name} İsimli Ürün Silindi",
                 AlertType = "danger"
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
+
+            });
 
             return RedirectToAction("ProductList");
         }
@@ -244,13 +268,13 @@ namespace ShopApplication.Controllers
             {
                 _categoryService.Delete(entity);
             }
-            var msg = new Messages()
+            TempData.Put("message", new Messages()
             {
-                Message = $"{entity.Name} İsimli Kategori Silindi",
+                Title = "Kayıt Silindi",
+                Message = $"{entity.Name} İsimli Kategori Silindi"
                 AlertType = "danger"
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
 
+            });
             return RedirectToAction("CategoryList");
         }
         [HttpPost]
@@ -258,16 +282,7 @@ namespace ShopApplication.Controllers
         {
             _categoryService.DeleteFromCategory(productıd, categoryıd);
             return Redirect("/admin/categories/" + categoryıd);
-        }
-        private void CreateMessage(string message,string alertType)
-        {
-            var msg = new Messages()
-            {
-                Message = message,
-                AlertType = alertType
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
-        }
+        }        
     }
 }
 

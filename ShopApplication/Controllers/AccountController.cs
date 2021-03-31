@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopApplication.EmailServices;
+using ShopApplication.Extensions;
 using ShopApplication.Identity;
 using ShopApplication.Models;
 using System;
@@ -95,13 +96,26 @@ namespace ShopApplication.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData.Put("message", new Messages()
+            {
+                Title = "Oturum Kapatıldı",
+                Message = "Oturum Kapatıldı",
+                AlertType = "warning"
+
+            });
             return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> ConfirmEmail(string userId,string token)
         {
             if (userId==null||token==null)
             {
-                CreateMessage("Geçersiz Token", "danger");
+                TempData.Put("message", new Messages()
+                {
+                    Title = "Geçersiz Token",
+                    Message = "Geçersiz Token",
+                    AlertType = "danger"
+
+                });
                 return View();
             }
             var user = await _userManager.FindByIdAsync(userId);
@@ -110,11 +124,23 @@ namespace ShopApplication.Controllers
                 var result = await _userManager.ConfirmEmailAsync(user, token);
                 if (result.Succeeded)
                 {
-                    CreateMessage("Hesabınız Onaylandı", "success");
+                    TempData.Put("message", new Messages()
+                    {
+                        Title = "Hesabınız Onaylandı",
+                        Message = "Hesabınız Onaylandı",
+                        AlertType = "success"
+
+                    });
                     return View();
                 }
             }
-            CreateMessage("Hesabınız Onaylanmadı", "warning");
+            TempData.Put("message", new Messages()
+            {
+                Title = "Hesabınız Onaylanmadı",
+                Message = "Hesabınız Onaylanmadı",
+                AlertType = "warning"
+
+            });
             return View();
         }
         public IActionResult ForgotPassword()
@@ -169,15 +195,6 @@ namespace ShopApplication.Controllers
                 return RedirectToAction("Login", "Account");
             }
             return View();
-        }
-        private void CreateMessage(string message, string alertType)
-        {
-            var msg = new Messages()
-            {
-                Message = message,
-                AlertType = alertType
-            };
-            TempData["message"] = JsonConvert.SerializeObject(msg);
-        }
+        }        
     }
 }
