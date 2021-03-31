@@ -144,11 +144,30 @@ namespace ShopApplication.Controllers
         }
         public IActionResult ResetPassword(string userId,string token)
         {
+            if (userId==null || token == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var model = new ResetPasswordModel { Token = token };
             return View();
         }
         [HttpPost]
-        public IActionResult ResetPassword(ResetPasswordModel model)
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user==null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
         private void CreateMessage(string message, string alertType)
