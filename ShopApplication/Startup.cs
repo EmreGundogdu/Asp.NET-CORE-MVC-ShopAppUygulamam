@@ -17,11 +17,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ShopApplication.EmailServices;
 
 namespace ShopApplication
 {
     public class Startup
-    {
+    {        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -74,6 +75,14 @@ namespace ShopApplication
 
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
+
+            services.AddScoped<IEmailSender, SmtpEmailSender>(i=>new SmtpEmailSender(
+                Configuration["EmailSender:Host"],
+                Configuration.GetValue<int>("EmailSender:Port"),
+                Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                Configuration["EmailSender:UserName"],
+                Configuration["EmailSender:Password"])                
+            );
 
             services.AddControllersWithViews();
         }

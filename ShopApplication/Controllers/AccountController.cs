@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ShopApplication.EmailServices;
 using ShopApplication.Identity;
 using ShopApplication.Models;
 using System;
@@ -16,10 +17,12 @@ namespace ShopApplication.Controllers
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private IEmailSender _emailSender;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IEmailSender emailSender)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            _signInManager = signInManager; ;
+            _emailSender = emailSender;
         }
         public IActionResult Login(string returnUrl=null)
         {
@@ -84,7 +87,7 @@ namespace ShopApplication.Controllers
                     userId = user.Id,
                     token = code
                 });
-
+                await _emailSender.SendEmailAsync(model.Email, "Hesabınızı Onaylayınız", $"Lütfen email hesabınızı onaylamak için linke <a href='https://localhost:44360{url}'>tıklayınız</a>");
                 return RedirectToAction("Login", "Account");
             }
             return View();
