@@ -271,7 +271,7 @@ namespace ShopApplication.Controllers
             TempData.Put("message", new Messages()
             {
                 Title = "Kayıt Silindi",
-                Message = $"{entity.Name} İsimli Kategori Silindi"
+                Message = $"{entity.Name} İsimli Kategori Silindi",
                 AlertType = "danger"
 
             });
