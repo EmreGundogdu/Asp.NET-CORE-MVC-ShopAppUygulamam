@@ -8,10 +8,9 @@
         <table class="table table-bordered mt-3">
             <thead>
                 <tr>
-                    <td style="width: 30px;">Id</td>
-                    <td style="width: 100px;">Role Name</td>
-                    <td></td>
-                    <td></td>
+                    <td style="width: 300px;">Id</td>
+                    <td>Role Name</td>
+                    <td style="width: 160px;"></td>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +22,7 @@
                             <td>@item.Id</td>
                             <td>@item.Name</td>
                             <td>
-                                <a href="/admin/role/edit/@item.Id" class="btn btn-dark btn-sm mr-2">Edit</a>
+                                <a href="/admin/role/@item.Id" class="btn btn-dark btn-sm mr-2">Edit</a>
 
                                 <form action="/admin/role/delete" method="POST" style="display: inline;">
                                     <input type="hidden" name="RoleId" value="@item.Id">
