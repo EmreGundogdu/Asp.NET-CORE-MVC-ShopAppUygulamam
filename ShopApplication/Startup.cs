@@ -140,6 +140,16 @@ namespace ShopApplication
                     pattern: "admin/role/{id?}",
                     defaults: new { controller = "Admin", action = "RoleEdit" }
                 );
+                endpoints.MapControllerRoute(
+                    name: "adminusers",
+                    pattern: "admin/user/{id?}",
+                    defaults: new { controller = "Admin", action = "UserList" }
+                );
+                endpoints.MapControllerRoute(
+                    name: "adminuseredit",
+                    pattern: "admin/user/{id?}",
+                    defaults: new { controller = "Admin", action = "UserEdit" }
+                );
 
                 endpoints.MapControllerRoute(
                     name: "adminproducts",

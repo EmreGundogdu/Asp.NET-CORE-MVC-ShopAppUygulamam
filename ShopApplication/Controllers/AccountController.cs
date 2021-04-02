@@ -195,6 +195,10 @@ namespace ShopApplication.Controllers
                 return RedirectToAction("Login", "Account");
             }
             return View();
-        }        
+        }    
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
