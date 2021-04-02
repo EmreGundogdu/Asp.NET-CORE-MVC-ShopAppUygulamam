@@ -2,9 +2,11 @@
 using Entity.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopApplication.Extensions;
+using ShopApplication.Identity;
 using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -19,11 +21,43 @@ namespace ShopApplication.Controllers
     {
         private IProductService _productsService;
         private ICategoryService _categoryService;
+        private RoleManager<IdentityRole> _roleManager;
+        private UserManager<User> _userManager;
 
-        public AdminController(IProductService productService,ICategoryService categoryService)
+        public AdminController(IProductService productService,ICategoryService categoryService,RoleManager<IdentityRole> roleManager,UserManager<User> userManager)
         {
             _productsService = productService;
             _categoryService = categoryService;
+            _roleManager = roleManager;
+            _userManager = userManager;
+        }
+        public IActionResult RoleList()
+        {
+            return View();
+        }
+        public IActionResult RoleCreate()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> RoleCreate(RoleModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _roleManager.CreateAsync(new IdentityRole(model.Name));
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("RoleList");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View(model);
         }
         public IActionResult Index()
         {
