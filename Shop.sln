@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Busine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{0842F3B8-BB05-4B39-9113-58D3E56390CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{020CF6CF-E63A-4853-90E7-523091B70F6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{020CF6CF-E63A-4853-90E7-523091B70F6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{08FA1B8E-746C-428E-823E-6494CF6ACFE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{020CF6CF-E63A-4853-90E7-523091B70F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{020CF6CF-E63A-4853-90E7-523091B70F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{020CF6CF-E63A-4853-90E7-523091B70F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08FA1B8E-746C-428E-823E-6494CF6ACFE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08FA1B8E-746C-428E-823E-6494CF6ACFE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08FA1B8E-746C-428E-823E-6494CF6ACFE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08FA1B8E-746C-428E-823E-6494CF6ACFE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
