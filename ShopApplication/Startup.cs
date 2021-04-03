@@ -72,7 +72,10 @@ namespace ShopApplication
 
             services.AddScoped<IProductRepository, EfProductRepository>();
             services.AddScoped<ICategoryRepository, EfCategoryRepository>();
+            services.AddScoped<ICartRepository, EfCartRepository>();
 
+
+            services.AddScoped<ICartService, CartManager>();
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
 
@@ -88,7 +91,7 @@ namespace ShopApplication
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IConfiguration configuration,UserManager<User> userManager,RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -113,7 +116,13 @@ namespace ShopApplication
 
             app.UseEndpoints(endpoints =>
             {
-                
+
+                endpoints.MapControllerRoute(
+                    name: "cart",
+                    pattern: "cart",
+                    defaults: new { controller = "Cart", action = "Index" }
+                );
+
                 endpoints.MapControllerRoute(
                     name: "products",
                     pattern: "products/{category?}",
@@ -196,6 +205,8 @@ namespace ShopApplication
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //SeedIdentity.Seed(userManager,roleManager,configuration).Wait();
         }
     }
 }

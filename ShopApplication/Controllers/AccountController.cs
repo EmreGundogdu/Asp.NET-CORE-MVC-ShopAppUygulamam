@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopApplication.EmailServices;
@@ -19,11 +20,13 @@ namespace ShopApplication.Controllers
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
         private IEmailSender _emailSender;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IEmailSender emailSender)
+        private ICartService _cartService;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IEmailSender emailSender,ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager; ;
             _emailSender = emailSender;
+            _cartService = cartService;
         }
         public IActionResult Login(string returnUrl=null)
         {
@@ -81,7 +84,7 @@ namespace ShopApplication.Controllers
             };
             var result = await _userManager.CreateAsync(user,model.Password);
             if (result.Succeeded)
-            {
+            {                
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var url = Url.Action("ConfirmEmail","Account",new
                 {
@@ -124,6 +127,7 @@ namespace ShopApplication.Controllers
                 var result = await _userManager.ConfirmEmailAsync(user, token);
                 if (result.Succeeded)
                 {
+                    _cartService.InitializeCart(user.Id);
                     TempData.Put("message", new Messages()
                     {
                         Title = "Hesabınız Onaylandı",

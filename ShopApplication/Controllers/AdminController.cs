@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ShopApplication.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private IProductService _productsService;
