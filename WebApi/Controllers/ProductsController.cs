@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,25 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private static readonly string[] Products =
+        private IProductService _productService;
+        public ProductsController(IProductService productService)
         {
-            "samsung s8","samsung s10","iphone 12","iphone 12max"
-        };
-        public string[] GetProducts()
+            _productService = productService;
+        }
+        public IActionResult GetProducts()
         {
-            return Products;
+            var products = _productService.GetAll();
+            return Ok(products);
         }
         [HttpGet("{id}")]
-        public string GetProduct(int id)
+        public IActionResult GetProduct(int id)
         {
-            return Products[id];
+            var p = _productService.GetById(id);
+            if (p==null)
+            {
+                return NotFound();
+            }
+            return Ok(p)
         }
     }
 }
