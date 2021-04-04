@@ -18,5 +18,13 @@ namespace DataAccess.Concrete.EfCore
                 return context.Carts.Include(i => i.CartItems).ThenInclude(i => i.Product).FirstOrDefault(i => i.UserId == userId);
             }
         }
+        public override void Update(Cart entity)
+        {
+            using (var context = new ShopContext())
+            {
+                context.Carts.Update(entity);
+                context.SaveChanges();
+            }
+        }
     }
 }

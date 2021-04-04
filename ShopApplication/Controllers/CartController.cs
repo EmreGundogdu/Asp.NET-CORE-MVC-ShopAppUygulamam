@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShopApplication.Identity;
+using ShopApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,27 @@ namespace ShopApplication.Controllers
         public IActionResult Index()
         {
             var cart = _cartService.GetCartByUserId(_userManager.GetUserId(User));
-            return View();
+            return View(new CartModel()
+            {
+                CartId = cart.Id,
+                CartItems = cart.CartItems.Select(i => new CartItemModel()
+                {
+                    CartItemId = i.Id,
+                    ProductId = i.ProductId,
+                    Name = i.Product.Name,
+                    Price = (double)i.Product.Price,
+                    ImageUrl = i.Product.ImageUrl,
+                    Quantity = i.Quantity
+
+                }).ToList()
+            }); 
         }
         [HttpPost]
-        public IActionResult AddToCart()
+        public IActionResult AddToCart(int productId,int quantity)
         {
-            return View();
+            var userId = _userManager.GetUserId(User);
+            _cartService.AddToCart(userId,productId,quantity);
+            return RedirectToAction("Index");
         }
     }
 }
